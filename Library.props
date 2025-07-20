@@ -1,0 +1,20 @@
+<Project>
+
+	<PropertyGroup>
+		<DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+
+		<IsAotCompatible>true</IsAotCompatible>
+
+		<NoWarn>$(NoWarn);CS0169;CS0649</NoWarn>
+
+		<AssemblyName Condition="'$(Configuration)' == 'Debug'">$(AssemblyName)d</AssemblyName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DebugType>embedded</DebugType>
+		<IncludeSymbols>false</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedAllSources>true</EmbedAllSources>
+	</PropertyGroup>
+
+</Project>

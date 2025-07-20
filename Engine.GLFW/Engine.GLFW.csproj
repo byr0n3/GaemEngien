@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Library.props"/>
+
+	<PropertyGroup>
+		<RootNamespace>glfw</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Native\Engine.Native.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="runtimes/osx-arm64/native/libglfw3.dylib" Pack="true" PackagePath="libglfw3.dylib"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Window.Native.cs">
+			<DependentUpon>Window.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Window.Descriptor.cs">
+			<DependentUpon>Window.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Monitor.Native.cs">
+			<DependentUpon>Monitor.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>

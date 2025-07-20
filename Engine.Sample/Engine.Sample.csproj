@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<IsPublishable>true</IsPublishable>
+
+		<OutputType>Exe</OutputType>
+		<PublishAot>true</PublishAot>
+		<InvariantGlobalization>true</InvariantGlobalization>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine\Engine.csproj"/>
+		<ProjectReference Include="..\Engine.GLFW\Engine.GLFW.csproj"/>
+		<ProjectReference Include="..\Engine.WebGPU\Engine.WebGPU.csproj"/>
+	</ItemGroup>
+
+	<!-- Copy native libraries for when we're using <ProjectReference /> instead of <PackageReference />. -->
+	<ItemGroup>
+		<Content Include="..\Engine.GLFW\runtimes\osx-arm64\native\libglfw3.dylib">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>libglfw3.dylib</Link>
+		</Content>
+		<Content Include="..\Engine.WebGPU\runtimes\osx-arm64\native\debug\libwgpu_native.dylib">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>libwgpu_native.dylib</Link>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="./shaders/*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>

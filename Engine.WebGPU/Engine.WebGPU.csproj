@@ -1,0 +1,99 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Library.props"/>
+
+	<PropertyGroup>
+		<RootNamespace>wgpu</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Native\Engine.Native.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="runtimes/osx-arm64/native/$(Configuration.ToLower())/libwgpu_native.a" Pack="true" PackagePath="libwgpu_native.a"/>
+		<None Include="runtimes/osx-arm64/native/$(Configuration.ToLower())/libwgpu_native.dylib" Pack="true" PackagePath="libwgpu_native.dylib"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Instance.Native.cs">
+			<DependentUpon>Instance.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Surface.Native.cs">
+			<DependentUpon>Surface.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Adapter.Native.cs">
+			<DependentUpon>Adapter.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Device.Native.cs">
+			<DependentUpon>Device.cs</DependentUpon>
+		</Compile>
+		<Compile Update="SurfaceCapabilities.Native.cs">
+			<DependentUpon>SurfaceCapabilities.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Texture.Native.cs">
+			<DependentUpon>Texture.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Queue.Native.cs">
+			<DependentUpon>Queue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="TextureView.Native.cs">
+			<DependentUpon>TextureView.cs</DependentUpon>
+		</Compile>
+		<Compile Update="PipelineLayout.Native.cs">
+			<DependentUpon>PipelineLayout.cs</DependentUpon>
+		</Compile>
+		<Compile Update="RenderPassEncoder.Native.cs">
+			<DependentUpon>RenderPassEncoder.cs</DependentUpon>
+		</Compile>
+		<Compile Update="ShaderModule.Native.cs">
+			<DependentUpon>ShaderModule.cs</DependentUpon>
+		</Compile>
+		<Compile Update="CommandEncoder.Native.cs">
+			<DependentUpon>CommandEncoder.cs</DependentUpon>
+		</Compile>
+		<Compile Update="CommandBuffer.Native.cs">
+			<DependentUpon>CommandBuffer.cs</DependentUpon>
+		</Compile>
+		<Compile Update="GpuBuffer.Native.cs">
+			<DependentUpon>Buffer.cs</DependentUpon>
+		</Compile>
+		<Compile Update="GpuBuffer.Descriptor.cs">
+			<DependentUpon>Buffer.cs</DependentUpon>
+		</Compile>
+		<Compile Update="QuerySet.Native.cs">
+			<DependentUpon>QuerySet.cs</DependentUpon>
+		</Compile>
+		<Compile Update="RenderPipeline.Descriptor.cs">
+			<DependentUpon>RenderPipeline.cs</DependentUpon>
+		</Compile>
+		<Compile Update="RenderPipeline.Native.cs">
+			<DependentUpon>RenderPipeline.cs</DependentUpon>
+		</Compile>
+		<Compile Update="RenderPipeline.Descriptor.*.cs">
+			<DependentUpon>RenderPipeline.Descriptor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Device.Descriptor.cs">
+			<DependentUpon>Device.cs</DependentUpon>
+		</Compile>
+		<Compile Update="TextureView.Descriptor.cs">
+			<DependentUpon>TextureView.cs</DependentUpon>
+		</Compile>
+		<Compile Update="RenderPassEncoder.Descriptor.cs">
+			<DependentUpon>RenderPassEncoder.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Instance.Descriptor.cs">
+			<DependentUpon>Instance.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Surface.Configuration.cs">
+			<DependentUpon>Surface.cs</DependentUpon>
+		</Compile>
+		<Compile Update="PipelineLayout.Descriptor.cs">
+		  <DependentUpon>PipelineLayout.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Texture.Descriptor.cs">
+		  <DependentUpon>Texture.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>
