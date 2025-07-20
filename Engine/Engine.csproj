@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Native\Engine.Native.csproj"/>
+		<ProjectReference Include="..\Engine.WebGPU\Engine.WebGPU.csproj"/>
+	</ItemGroup>
+
+</Project>
