@@ -11,7 +11,7 @@ namespace Engine
 	/// <summary>
 	/// Provides methods for loading and managing shader modules.
 	/// </summary>
-	public static class Shaders
+	public static class WebGpuShaders
 	{
 		/// <summary>
 		/// Load a shader module from a file.

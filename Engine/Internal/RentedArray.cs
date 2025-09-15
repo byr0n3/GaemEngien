@@ -36,11 +36,21 @@ namespace Engine.Internal
 		public RentedArray(int minLength) =>
 			this.buffer = ArrayPool<TType>.Shared.Rent(minLength);
 
+		public System.ReadOnlySpan<TType> Slice(int start = 0, int length = 0)
+		{
+			if (length <= 0)
+			{
+				length = this.Value.Length - start;
+			}
+
+			return new System.ReadOnlySpan<TType>(this.Value, start, length);
+		}
+
 		public void Dispose()
 		{
 			Debug.Assert(this.IsValid);
 
-			ArrayPool<TType>.Shared.Return(this.buffer);
+			ArrayPool<TType>.Shared.Return(this.buffer, true);
 		}
 
 		public static implicit operator TType[](RentedArray<TType> value)

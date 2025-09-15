@@ -1,6 +1,6 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
-using Engine.Native;
+using Engine.Shared;
 using wgpu.Enums;
 using wgpu.Flags;
 using wgpu.Structs;

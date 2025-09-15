@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Library.props"/>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Engine.GLFW\Engine.GLFW.csproj" />
+	</ItemGroup>
+
+</Project>

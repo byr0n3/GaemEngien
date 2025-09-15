@@ -19,5 +19,25 @@ namespace glfw.Enums
 		/// Specifies the client API to be used by the created window.
 		/// </summary>
 		ClientApi = 0x00022001,
+
+		/// <summary>
+		/// Specifies the major version of the context to be created.
+		/// </summary>
+		ContextVersionMajor = 0x00022002,
+
+		/// <summary>
+		/// Specifies the minor version of the context to be created.
+		/// </summary>
+		ContextVersionMinor = 0x00022003,
+
+		/// <summary>
+		/// Specifies the OpenGL profile to be used.
+		/// </summary>
+		OpenGLProfile = 0x00022008,
+
+		/// <summary>
+		/// Specifies whether to create an OpenGL context that is forward-compatible.
+		/// </summary>
+		OpenGLForwardCompat = 0x00022006,
 	}
 }

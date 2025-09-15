@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Engine.Native\Engine.Native.csproj"/>
+		<ProjectReference Include="..\Engine.Shared\Engine.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -89,10 +89,13 @@
 			<DependentUpon>Surface.cs</DependentUpon>
 		</Compile>
 		<Compile Update="PipelineLayout.Descriptor.cs">
-		  <DependentUpon>PipelineLayout.cs</DependentUpon>
+			<DependentUpon>PipelineLayout.cs</DependentUpon>
 		</Compile>
 		<Compile Update="Texture.Descriptor.cs">
-		  <DependentUpon>Texture.cs</DependentUpon>
+			<DependentUpon>Texture.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Sampler.Native.cs">
+			<DependentUpon>Sampler.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
 

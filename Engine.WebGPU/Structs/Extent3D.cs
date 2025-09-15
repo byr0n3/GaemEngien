@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace wgpu.Structs
@@ -38,5 +39,13 @@ namespace wgpu.Structs
 			this.Height = height;
 			this.DepthOrArrayLayers = depthOrArrayLayers;
 		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static implicit operator Extent3D((uint width, uint height) data) =>
+			new(data.width, data.height);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static implicit operator Extent3D((uint width, uint height, uint depth) data) =>
+			new(data.width, data.height, data.depth);
 	}
 }

@@ -1,4 +1,4 @@
-using Engine.Native;
+using Engine.Shared;
 using JetBrains.Annotations;
 using wgpu.Enums;
 
@@ -76,7 +76,7 @@ namespace wgpu
 		/// <param name="group">The bind group to set.</param>
 		/// <param name="dynamicOffsetCount">The number of dynamic offsets.</param>
 		/// <param name="dynamicOffsets">A pointer to an array of dynamic offsets.</param>
-		public void SetBindGroup(uint groupIndex, BindGroup group, nint dynamicOffsetCount, Pointer<uint> dynamicOffsets) =>
+		public void SetBindGroup(uint groupIndex, BindGroup group, nint dynamicOffsetCount = 0, Pointer<uint> dynamicOffsets = default) =>
 			RenderPassEncoderNative.SetBindGroup(this, groupIndex, group, dynamicOffsetCount, dynamicOffsets);
 
 		/// <summary>

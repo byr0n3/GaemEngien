@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="../Library.props"/>
+
+	<ItemGroup>
+		<!-- @todo GLFW shouldn't be a direct dependency -->
+		<ProjectReference Include="..\Engine.GLFW\Engine.GLFW.csproj"/>
+		<ProjectReference Include="..\Engine.Shared\Engine.Shared.csproj" />
+	</ItemGroup>
+
+</Project>

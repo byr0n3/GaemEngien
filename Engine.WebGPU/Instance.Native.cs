@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using Engine.Native;
+using Engine.Shared;
 using wgpu.Internal;
 using wgpu.Internal.Structs;
 using wgpu.Structs;

@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using Engine.Native;
+using Engine.Shared;
 using JetBrains.Annotations;
 using wgpu.Enums;
 using wgpu.Structs;

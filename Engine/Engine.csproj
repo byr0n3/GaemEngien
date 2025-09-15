@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-		<ProjectReference Include="..\Engine.Native\Engine.Native.csproj"/>
+		<ProjectReference Include="..\Engine.Shared\Engine.Shared.csproj" />
+		<ProjectReference Include="..\Engine.OpenGL\Engine.OpenGL.csproj" />
 		<ProjectReference Include="..\Engine.WebGPU\Engine.WebGPU.csproj"/>
 	</ItemGroup>
 

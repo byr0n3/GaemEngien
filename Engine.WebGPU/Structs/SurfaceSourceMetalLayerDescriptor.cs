@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using Engine.Native;
+using Engine.Shared;
 
 namespace wgpu.Structs
 {
@@ -20,7 +20,7 @@ namespace wgpu.Structs
 		public required nint Layer { get; init; }
 
 		/// <summary>
-		/// Implicitly converts a <see cref="SurfaceSourceMetalLayerDescriptor"/> instance to a <see cref="Engine.Native.Pointer{TValue}"/> of type <see cref="ChainedStruct"/>.
+		/// Implicitly converts a <see cref="SurfaceSourceMetalLayerDescriptor"/> instance to a <see cref="Engine.Shared.Pointer{TValue}"/> of type <see cref="ChainedStruct"/>.
 		/// </summary>
 		/// <param name="value">The <see cref="SurfaceSourceMetalLayerDescriptor"/> instance to convert.</param>
 		/// <returns>A pointer to the <see cref="ChainedStruct"/> part of the <see cref="SurfaceSourceMetalLayerDescriptor"/>.</returns>

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using glfw.Enums;
 using glfw.Internal;
@@ -7,6 +8,7 @@ namespace glfw
 	/// <summary>
 	/// Provides a wrapper for the GLFW library to create windows, contexts and surfaces, receive input and events.
 	/// </summary>
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public static class GLFW
 	{
 		/// <summary>
@@ -56,6 +58,21 @@ namespace glfw
 		/// </summary>
 		public static void PollEvents() =>
 			libglfw3.PollEvents();
+
+		/// <summary>
+		/// Sets the swap interval for the current context.
+		/// </summary>
+		/// <param name="interval">The swap interval. A zero value indicates no vertical synchronization (VSync).</param>
+		public static void SwapInterval(int interval) =>
+			libglfw3.SwapInterval(interval);
+
+		/// <summary>
+		/// Retrieves the address of an OpenGL function.
+		/// </summary>
+		/// <param name="name">The name of the OpenGL function to retrieve.</param>
+		/// <returns>The address of the specified OpenGL function, or default if not found.</returns>
+		public static nint GetProcAddress(NativeString name) =>
+			libglfw3.GetProcAddress(name);
 
 		[UnmanagedCallersOnly]
 		private static void OnGlfwError(ErrorCode code, NativeString description) =>

@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Engine.Native;
+using Engine.Shared;
 using glfw.Enums;
 
 [assembly: DisableRuntimeMarshalling]
@@ -29,5 +29,11 @@ namespace glfw.Internal
 
 		[DllImport(libglfw3.Library, EntryPoint = "glfwPollEvents")]
 		public static extern void PollEvents();
+
+		[DllImport(libglfw3.Library, EntryPoint = "glfwSwapInterval")]
+		public static extern void SwapInterval(int interval);
+
+		[DllImport(libglfw3.Library, EntryPoint = "glfwGetProcAddress")]
+		public static extern nint GetProcAddress(NativeString name);
 	}
 }

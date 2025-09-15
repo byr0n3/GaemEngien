@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using Engine.Native;
+using Engine.Shared;
 
 namespace glfw
 {
@@ -11,7 +11,7 @@ namespace glfw
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential)]
 	[DebuggerTypeProxy(typeof(DebugView))]
-	public readonly unsafe partial struct NativeString
+	public readonly unsafe struct NativeString
 	{
 		private readonly byte* ptr;
 

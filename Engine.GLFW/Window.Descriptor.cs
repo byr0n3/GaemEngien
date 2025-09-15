@@ -55,5 +55,46 @@ namespace glfw
 		/// Gets or sets a value indicating whether the window is resizable.
 		/// </summary>
 		public bool Resizable { get; init; }
+
+		/// <summary>
+		/// Gets or sets the version of the OpenGL context to be created.
+		/// </summary>
+		public WindowContextVersion ContextVersion { get; init; }
+
+		/// <summary>
+		/// Specifies the OpenGL profile to be used.
+		/// </summary>
+		public OpenGLProfile OpenGLProfile { get; init; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether the OpenGL context should be forward-compatible.
+		/// </summary>
+		public bool OpenGLForwardCompat { get; init; }
+
+		/// <summary>
+		/// Represents the OpenGL version of a window context.
+		/// </summary>
+		[StructLayout(LayoutKind.Sequential)]
+		public readonly struct WindowContextVersion
+		{
+			/// <summary>
+			/// Gets the major version of the OpenGL context.
+			/// </summary>
+			public readonly int Major;
+
+			/// <summary>
+			/// Gets the minor version of the OpenGL context.
+			/// </summary>
+			public readonly int Minor;
+
+			/// <summary>
+			/// Represents the OpenGL version of a window context.
+			/// </summary>
+			public WindowContextVersion(int major, int minor)
+			{
+				this.Major = major;
+				this.Minor = minor;
+			}
+		}
 	}
 }

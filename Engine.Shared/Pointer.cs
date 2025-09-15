@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace Engine.Native
+namespace Engine.Shared
 {
 	/// <summary>
 	/// Represents a pointer to an unmanaged type.
