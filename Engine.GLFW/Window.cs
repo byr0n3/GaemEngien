@@ -26,8 +26,18 @@ namespace glfw
 		/// <param name="height">The new height of the framebuffer.</param>
 		public delegate void OnFramebufferSizeChanged(Window window, int width, int height);
 
+		/// <summary>
+		/// Represents the method that will be called when the cursor position changes.
+		/// </summary>
+		/// <param name="window">The window instance where the cursor position changed.</param>
+		/// <param name="position">The new cursor position as a 2D vector.</param>
 		public delegate void OnCursorPositionChanged(Window window, Vector2 position);
 
+		/// <summary>
+		/// Represents a delegate method that is called when the scroll position changes in a window.
+		/// </summary>
+		/// <param name="window">The window instance that triggered the event.</param>
+		/// <param name="position">The new scroll position as a 2D vector.</param>
 		public delegate void OnScrollChanged(Window window, Vector2 position);
 
 		private static readonly Dictionary<Window, OnFramebufferSizeChanged> framebufferSizeChangedCallbacks = new();
@@ -138,6 +148,17 @@ namespace glfw
 		}
 
 		/// <summary>
+		/// Gets or sets the cursor mode for this window.
+		/// </summary>
+		public CursorMode CursorMode
+		{
+			get => Unsafe.BitCast<int, CursorMode>(WindowNative.GetInputMode(this, Unsafe.BitCast<InputMode, int>(InputMode.Cursor)));
+			set => WindowNative.SetInputMode(this,
+											 Unsafe.BitCast<InputMode, int>(InputMode.Cursor),
+											 Unsafe.BitCast<CursorMode, int>(value));
+		}
+
+		/// <summary>
 		/// Represents a window in the GLFW library.
 		/// </summary>
 		[MustDisposeResource]
@@ -182,6 +203,11 @@ namespace glfw
 			}
 		}
 
+		// @todo Support multiple callbacks.
+		/// <summary>
+		/// Adds a cursor position changed callback to the window.
+		/// </summary>
+		/// <param name="callback">The delegate method to be called when the cursor position changes.</param>
 		public unsafe void AddCursorPositionChanged(OnCursorPositionChanged callback)
 		{
 			Window.cursorPositionChangedCallbacks[this] = callback;
@@ -197,6 +223,11 @@ namespace glfw
 			}
 		}
 
+		// @todo Support multiple callbacks.
+		/// <summary>
+		/// Adds a scroll changed event handler to the window.
+		/// </summary>
+		/// <param name="callback">The callback to invoke when the scroll position changes.</param>
 		public unsafe void AddScrollChanged(OnScrollChanged callback)
 		{
 			Window.scrollChangedCallbacks[this] = callback;
@@ -225,11 +256,13 @@ namespace glfw
 		public void SwapBuffers() =>
 			WindowNative.SwapBuffers(this);
 
+		/// <summary>
+		/// Checks the state of a keyboard key.
+		/// </summary>
+		/// <param name="key">The key to check.</param>
+		/// <returns><see langword="true"/> if the key is pressed, otherwise <see langword="false"/>.</returns>
 		public bool GetKey(Key key) =>
 			WindowNative.GetKey(this, key);
-
-		public void SetCursorMode(CursorMode mode) =>
-			WindowNative.SetInputMode(this, Unsafe.BitCast<InputMode, int>(InputMode.Cursor), Unsafe.BitCast<CursorMode, int>(mode));
 
 		/// <summary>
 		/// Releases all resources used by the window.

@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\Engine.Shared\Engine.Shared.csproj"/>
+		<ProjectReference Include="..\Engine.OpenGL\Engine.OpenGL.csproj"/>
+	</ItemGroup>
+
+</Project>

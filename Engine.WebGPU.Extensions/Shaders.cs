@@ -1,17 +1,17 @@
 using System.IO;
 using Engine.Enums;
-using Engine.Internal;
+using Engine.Shared;
 using JetBrains.Annotations;
 using wgpu;
 using wgpu.Enums;
 using wgpu.Structs;
 
-namespace Engine
+namespace Engine.WebGPU.Extensions
 {
 	/// <summary>
 	/// Provides methods for loading and managing shader modules.
 	/// </summary>
-	public static class WebGpuShaders
+	public static class Shaders
 	{
 		/// <summary>
 		/// Load a shader module from a file.

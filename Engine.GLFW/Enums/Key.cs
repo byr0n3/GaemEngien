@@ -1,8 +1,20 @@
+#pragma warning disable CS1591
+
 namespace glfw.Enums
 {
+	/// <summary>
+	/// Represents a key on the keyboard.
+	/// </summary>
 	public enum Key
 	{
 		None = -1,
+
+		Space = ' ',
+		Apostrophe = '\'',
+		Comma = ',',
+		Minus = '-',
+		Period = '.',
+		Slash = '/',
 
 		Zero = '0',
 		One = '1',
@@ -14,6 +26,8 @@ namespace glfw.Enums
 		Seven = '7',
 		Eight = '8',
 		Nine = '9',
+		Semicolon = ';',
+		Equal = '=',
 
 		A = 'A',
 		B = 'B',
@@ -41,15 +55,6 @@ namespace glfw.Enums
 		X = 'X',
 		Y = 'Y',
 		Z = 'Z',
-
-		Space = ' ',
-		Apostrophe = '\'',
-		Comma = ',',
-		Minus = '-',
-		Period = '.',
-		Slash = '/',
-		Semicolon = ';',
-		Equal = '=',
 		LeftBracket = '[',
 		Backslash = '\\',
 		RightBracket = ']',

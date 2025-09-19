@@ -120,9 +120,23 @@ namespace Engine.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Updates the data store for a buffer object.
+		/// </summary>
+		/// <param name="target">Specifies the target to which subsequent buffer operations apply.</param>
+		/// <param name="size">The size in bytes of the buffer data.</param>
+		/// <param name="data">A pointer to the new data that will be stored in the buffer object's data store.</param>
+		/// <param name="usage">Describes how a typical usage pattern would bind, modify and use the data store.</param>
 		public static unsafe void BufferData(BufferTarget target, nint size, VoidPointer data, BufferUsage usage) =>
 			GL.BufferData(target, size, data, usage);
 
+		/// <summary>
+		/// Updates a portion of the data store in the buffer object.
+		/// </summary>
+		/// <param name="target">The target buffer object.</param>
+		/// <param name="data">The data to be updated in the buffer object.</param>
+		/// <param name="offset">The starting offset within the buffer object where the data will be placed. Default is 0.</param>
+		/// <typeparam name="T">The type of data being updated, must be an unmanaged type.</typeparam>
 		public static unsafe void BufferSubData<T>(BufferTarget target, scoped System.ReadOnlySpan<T> data, int offset = 0)
 			where T : unmanaged
 		{
@@ -132,6 +146,13 @@ namespace Engine.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Updates a subset of a buffer object's data store.
+		/// </summary>
+		/// <param name="target">Specifies the target buffer object.</param>
+		/// <param name="offset">Specifies the offset into the buffer object's data store where data replacement will begin, measured in basic machine units.</param>
+		/// <param name="size">Specifies the size of the data store region to be replaced, measured in basic machine units.</param>
+		/// <param name="data">Pointer to the new data that will be copied into the buffer object's data store.</param>
 		public static unsafe void BufferSubData(BufferTarget target, int offset, nint size, VoidPointer data) =>
 			GL.BufferSubData(target, offset, size, data);
 	}

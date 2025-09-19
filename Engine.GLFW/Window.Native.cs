@@ -61,6 +61,9 @@ namespace glfw
 		[DllImport(libglfw3.Library, EntryPoint = "glfwSetInputMode")]
 		public static extern void SetInputMode(Window window, int mode, int value);
 
+		[DllImport(libglfw3.Library, EntryPoint = "glfwGetInputMode")]
+		public static extern int GetInputMode(Window window, int mode);
+
 		[DllImport(libglfw3.Library, EntryPoint = "glfwSetFramebufferSizeCallback")]
 		public static extern unsafe void SetFramebufferSizeCallback(Window window, delegate*unmanaged<Window, int, int, void> callback);
 

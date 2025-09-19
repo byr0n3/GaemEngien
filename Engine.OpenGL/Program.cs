@@ -87,12 +87,29 @@ namespace Engine.OpenGL
 		public int GetUniformLocation(NativeString name) =>
 			GL.GetUniformLocation(this, name);
 
+		/// <summary>
+		/// Sets the value of a uniform variable with one integer component.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable.</param>
+		/// <param name="value">The integer value to set.</param>
 		public void SetUniform1I(NativeString name, int value) =>
 			GL.Uniform1I(this.GetUniformLocation(name), value);
 
+		/// <summary>
+		/// Sets a uniform variable of type float vec3.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable.</param>
+		/// <param name="value">The value to set for the uniform variable.</param>
 		public void SetUniform3F(NativeString name, Vector3 value) =>
 			this.SetUniform3F(name, value.X, value.Y, value.Z);
 
+		/// <summary>
+		/// Sets a uniform variable of type vec3 in the program object.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable.</param>
+		/// <param name="x">The x component of the vector.</param>
+		/// <param name="y">The y component of the vector.</param>
+		/// <param name="z">The z component of the vector.</param>
 		public void SetUniform3F(NativeString name, float x, float y, float z) =>
 			GL.Uniform3F(this.GetUniformLocation(name), x, y, z);
 

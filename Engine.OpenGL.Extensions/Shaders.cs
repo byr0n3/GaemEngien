@@ -1,15 +1,14 @@
 using System.IO;
-using Engine.Internal;
-using Engine.OpenGL;
 using Engine.OpenGL.Enums;
+using Engine.Shared;
 using JetBrains.Annotations;
 
-namespace Engine
+namespace Engine.OpenGL.Extensions
 {
 	/// <summary>
 	/// Provides static methods for working with OpenGL shaders.
 	/// </summary>
-	public static class OpenGlShaders
+	public static class Shaders
 	{
 		/// <summary>
 		/// Loads and compiles a shader program from vertex and fragment shader files.
@@ -20,8 +19,8 @@ namespace Engine
 		[MustDisposeResource]
 		public static Program LoadFromFiles(string vertexPath, string fragmentPath)
 		{
-			var vertexSource = OpenGlShaders.ReadFile(vertexPath, out var vertexRead);
-			var fragmentSource = OpenGlShaders.ReadFile(fragmentPath, out var fragmentRead);
+			var vertexSource = Shaders.ReadFile(vertexPath, out var vertexRead);
+			var fragmentSource = Shaders.ReadFile(fragmentPath, out var fragmentRead);
 
 			var vertex = new Shader(ShaderType.Vertex);
 			var fragment = new Shader(ShaderType.Fragment);

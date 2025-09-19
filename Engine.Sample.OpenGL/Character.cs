@@ -1,8 +1,8 @@
 using System.Runtime.InteropServices;
-using Engine.Shared;
 using Engine.OpenGL;
+using Engine.Shared;
 
-namespace Engine.Sample
+namespace Engine.Sample.OpenGL
 {
 	[StructLayout(LayoutKind.Sequential)]
 	internal readonly struct Character
