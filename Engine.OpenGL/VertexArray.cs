@@ -1,3 +1,5 @@
+using Engine.OpenGL.Enums;
+using Engine.Shared;
 using JetBrains.Annotations;
 
 namespace Engine.OpenGL
@@ -87,5 +89,15 @@ namespace Engine.OpenGL
 		/// </summary>
 		public static void Unbind() =>
 			GL.BindVertexArray(default);
+
+		public static void EnableAttribute(uint index) =>
+			GL.EnableVertexAttribArray(index);
+
+		public static unsafe void AttributePointer(uint index, int size, VertexDataType type, int stride) =>
+			GL.VertexAttribPointer(index, size, type, false, stride, null);
+
+		public static unsafe void AttributePointer<TValue>(uint index, int size, VertexDataType type, int stride, Pointer<TValue> pointer)
+			where TValue : unmanaged =>
+			GL.VertexAttribPointer(index, size, type, false, stride, pointer);
 	}
 }

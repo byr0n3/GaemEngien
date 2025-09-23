@@ -43,6 +43,7 @@ namespace Engine.OpenGL
 		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteVertexArrays;
 		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteBuffers;
 		private static readonly unsafe delegate*unmanaged<uint, void> deleteProgram;
+		private static readonly unsafe delegate*unmanaged<int, float, float, void> uniform2F;
 		private static readonly unsafe delegate*unmanaged<int, float, float, float, void> uniform3F;
 		private static readonly unsafe delegate*unmanaged<int, float, float, float, float, void> uniform4F;
 		private static readonly unsafe delegate*unmanaged<int, int, void> uniform1I;
@@ -97,6 +98,7 @@ namespace Engine.OpenGL
 			GL.deleteVertexArrays = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteVertexArrays\0"u8);
 			GL.deleteBuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteBuffers\0"u8);
 			GL.deleteProgram = (delegate*unmanaged<uint, void>)GL.GetProcAddress("glDeleteProgram\0"u8);
+			GL.uniform2F = (delegate*unmanaged<int, float, float, void>)GL.GetProcAddress("glUniform2f\0"u8);
 			GL.uniform3F = (delegate*unmanaged<int, float, float, float, void>)GL.GetProcAddress("glUniform3f\0"u8);
 			GL.uniform4F = (delegate*unmanaged<int, float, float, float, float, void>)GL.GetProcAddress("glUniform4f\0"u8);
 			GL.uniform1I = (delegate*unmanaged<int, int, void>)GL.GetProcAddress("glUniform1i\0"u8);
@@ -335,6 +337,12 @@ namespace Engine.OpenGL
 		public static unsafe void DeleteProgram(uint program)
 		{
 			GL.deleteProgram(program);
+			GL.Validate();
+		}
+
+		public static unsafe void Uniform2F(int location, float v0, float v1)
+		{
+			GL.uniform2F(location, v0, v1);
 			GL.Validate();
 		}
 

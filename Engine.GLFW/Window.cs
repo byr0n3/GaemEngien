@@ -328,6 +328,7 @@ namespace glfw
 			WindowNative.SetHint(WindowHint.ContextVersionMajor, hints.ContextVersion.Major);
 			WindowNative.SetHint(WindowHint.ContextVersionMinor, hints.ContextVersion.Minor);
 			WindowNative.SetHint(WindowHint.OpenGLProfile, Unsafe.BitCast<OpenGLProfile, int>(hints.OpenGLProfile));
+
 			if (hints.OpenGLForwardCompat)
 			{
 				WindowNative.SetHint(WindowHint.OpenGLForwardCompat, hints.OpenGLForwardCompat);
