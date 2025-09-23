@@ -19,5 +19,10 @@ namespace Engine.OpenGL.Enums
 		/// Enables or disables blending of pixel colors.
 		/// </summary>
 		Blend = 0x0BE2,
+
+		/// <summary>
+		/// Enables or disables multisampling, a technique that samples multiple points per pixel to improve visual quality by reducing jagged edges.
+		/// </summary>
+		Multisample = 0x809D,
 	}
 }

@@ -1,3 +1,5 @@
+using Engine.OpenGL.Enums;
+using Engine.Shared;
 using JetBrains.Annotations;
 
 namespace Engine.OpenGL
@@ -87,5 +89,38 @@ namespace Engine.OpenGL
 		/// </summary>
 		public static void Unbind() =>
 			GL.BindVertexArray(default);
+
+		/// <summary>
+		/// Enables the vertex attribute array at the specified index.
+		/// </summary>
+		/// <param name="index">The index of the vertex attribute to enable.</param>
+		public static void EnableAttribute(uint index) =>
+			GL.EnableVertexAttribArray(index);
+
+		/// <summary>
+		/// Defines the format and location of vertex attribute data for a shader program.
+		/// </summary>
+		/// <param name="index">The index of the generic vertex attribute to modify.</param>
+		/// <param name="size">The number of components per vertex attribute (e.g., 2 for a vec2).</param>
+		/// <param name="type">The data type of each component in the attribute array.</param>
+		/// <param name="stride">The byte offset between consecutive vertex attributes.</param>
+		public static unsafe void AttributePointer(uint index, int size, VertexDataType type, int stride) =>
+			GL.VertexAttribPointer(index, size, type, false, stride, null);
+
+		/// <summary>
+		/// Defines a generic vertex attribute array by specifying the attribute index, size, data type, stride, and pointer to the data.
+		/// </summary>
+		/// <param name="index">The index of the generic vertex attribute to be modified.</param>
+		/// <param name="size">The number of components per vertex attribute (must be 1, 2, 3, or 4).</param>
+		/// <param name="type">The data type of each component.</param>
+		/// <param name="stride">The byte offset between consecutive vertex attributes.</param>
+		/// <param name="pointer">A pointer to the first component of the first vertex attribute.</param>
+		/// <typeparam name="TValue">The unmanaged type that represents the vertex attribute data.</typeparam>
+		/// <remarks>
+		/// This method calls <c>GL.VertexAttribPointer</c> with the <c>normalized</c> flag set to <c>false</c>.
+		/// </remarks>
+		public static unsafe void AttributePointer<TValue>(uint index, int size, VertexDataType type, int stride, Pointer<TValue> pointer)
+			where TValue : unmanaged =>
+			GL.VertexAttribPointer(index, size, type, false, stride, pointer);
 	}
 }

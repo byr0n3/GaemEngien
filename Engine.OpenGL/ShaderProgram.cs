@@ -11,12 +11,12 @@ namespace Engine.OpenGL
 	/// Represents an OpenGL program, which is a combination of shaders that can be used to render objects.
 	/// </summary>
 	[MustDisposeResource]
-	public readonly struct Program : System.IEquatable<Program>, System.IDisposable
+	public readonly struct ShaderProgram : System.IEquatable<ShaderProgram>, System.IDisposable
 	{
 		private readonly uint id;
 
-		/// <inheritdoc cref="Program"/>
-		public Program() =>
+		/// <inheritdoc cref="ShaderProgram"/>
+		public ShaderProgram() =>
 			this.id = GL.CreateProgram();
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace Engine.OpenGL
 			return;
 
 			[Conditional("DEBUG")]
-			static void WriteProgramLog(Program @this)
+			static void WriteProgramLog(ShaderProgram @this)
 			{
 				System.Span<byte> buffer = stackalloc byte[512];
 
@@ -92,7 +92,7 @@ namespace Engine.OpenGL
 		/// </summary>
 		/// <param name="name">The name of the uniform variable.</param>
 		/// <param name="value">The integer value to set.</param>
-		public void SetUniform1I(NativeString name, int value) =>
+		public void SetUniform(NativeString name, int value) =>
 			GL.Uniform1I(this.GetUniformLocation(name), value);
 
 		/// <summary>
@@ -100,8 +100,25 @@ namespace Engine.OpenGL
 		/// </summary>
 		/// <param name="name">The name of the uniform variable.</param>
 		/// <param name="value">The value to set for the uniform variable.</param>
-		public void SetUniform3F(NativeString name, Vector3 value) =>
-			this.SetUniform3F(name, value.X, value.Y, value.Z);
+		public void SetUniform(NativeString name, Vector3 value) =>
+			this.SetUniform(name, value.X, value.Y, value.Z);
+
+		/// <summary>
+		/// Sets a uniform variable of type float vec3.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable.</param>
+		/// <param name="value">The value to set for the uniform variable.</param>
+		public void SetUniform(NativeString name, Vector2 value) =>
+			this.SetUniform(name, value.X, value.Y);
+
+		/// <summary>
+		/// Sets a uniform variable of type float vec2.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable.</param>
+		/// <param name="x">The X coordinate value to set for the uniform variable.</param>
+		/// <param name="y">The Y coordinate value to set for the uniform variable.</param>
+		public void SetUniform(NativeString name, float x, float y) =>
+			GL.Uniform2F(this.GetUniformLocation(name), x, y);
 
 		/// <summary>
 		/// Sets a uniform variable of type vec3 in the program object.
@@ -110,7 +127,7 @@ namespace Engine.OpenGL
 		/// <param name="x">The x component of the vector.</param>
 		/// <param name="y">The y component of the vector.</param>
 		/// <param name="z">The z component of the vector.</param>
-		public void SetUniform3F(NativeString name, float x, float y, float z) =>
+		public void SetUniform(NativeString name, float x, float y, float z) =>
 			GL.Uniform3F(this.GetUniformLocation(name), x, y, z);
 
 		/// <summary>
@@ -118,8 +135,8 @@ namespace Engine.OpenGL
 		/// </summary>
 		/// <param name="name">The name of the uniform variable.</param>
 		/// <param name="value">The value to set the uniform variable to.</param>
-		public void SetUniform4F(NativeString name, Vector4 value) =>
-			this.SetUniform4F(name, value.X, value.Y, value.Z, value.W);
+		public void SetUniform(NativeString name, Vector4 value) =>
+			this.SetUniform(name, value.X, value.Y, value.Z, value.W);
 
 		/// <summary>
 		/// Sets the value of a uniform variable located in the program object.
@@ -129,11 +146,17 @@ namespace Engine.OpenGL
 		/// <param name="y">The y component of the 4D vector.</param>
 		/// <param name="z">The z component of the 4D vector.</param>
 		/// <param name="w">The w component of the 4D vector.</param>
-		public void SetUniform4F(NativeString name, float x, float y, float z, float w) =>
+		public void SetUniform(NativeString name, float x, float y, float z, float w) =>
 			GL.Uniform4F(this.GetUniformLocation(name), x, y, z, w);
 
-		public unsafe void SetUniformMatrix4Fv(NativeString name, bool transpose, Matrix4x4 value) =>
-			GL.UniformMatrix4Fv(this.GetUniformLocation(name), 1, transpose, &value.M11);
+		/// <summary>
+		/// Sets the specified uniform variable in the shader program to the given 4x4 matrix.
+		/// </summary>
+		/// <param name="name">The name of the uniform variable to set.</param>
+		/// <param name="value">The matrix value to assign to the uniform.</param>
+		/// <param name="transposed">If true, the matrix is transposed before being sent to the GPU; otherwise, it is sent in column‑major order.</param>
+		public unsafe void SetUniform(NativeString name, Matrix4x4 value, bool transposed = false) =>
+			GL.UniformMatrix4Fv(this.GetUniformLocation(name), 1, transposed, &value.M11);
 
 		/// <summary>
 		/// Disposes the OpenGL program by deleting it.
@@ -142,13 +165,13 @@ namespace Engine.OpenGL
 			GL.DeleteProgram(this.id);
 
 		/// <summary>
-		/// Determines whether the current instance is equal to another specified <see cref="Program"/> object.
+		/// Determines whether the current instance is equal to another specified <see cref="ShaderProgram"/> object.
 		/// </summary>
-		/// <param name="other">The other <see cref="Program"/> object to compare with the current instance.</param>
+		/// <param name="other">The other <see cref="ShaderProgram"/> object to compare with the current instance.</param>
 		/// <returns>
-		/// <see langword="true"/> if the current instance and the other <see cref="Program"/> object have the same ID; otherwise, <see langword="false"/>.
+		/// <see langword="true"/> if the current instance and the other <see cref="ShaderProgram"/> object have the same ID; otherwise, <see langword="false"/>.
 		/// </returns>
-		public bool Equals(Program other) =>
+		public bool Equals(ShaderProgram other) =>
 			this.id == other.id;
 
 		/// <summary>
@@ -159,39 +182,39 @@ namespace Engine.OpenGL
 		/// <see langword="true"/> if the specified object is equal to the current instance; otherwise, <see langword="false"/>.
 		/// </returns>
 		public override bool Equals(object? @object) =>
-			(@object is Program other) && this.Equals(other);
+			(@object is ShaderProgram other) && this.Equals(other);
 
 		/// <summary>
-		/// Serves as a hash function for the <see cref="Program"/> type.
+		/// Serves as a hash function for the <see cref="ShaderProgram"/> type.
 		/// </summary>
 		/// <returns>The hash code for this instance, which is based on the underlying OpenGL program ID.</returns>
 		public override int GetHashCode() =>
 			(int)this.id;
 
 		/// <summary>
-		/// Compares two instances of <see cref="Program"/> for equality based on their IDs.
+		/// Compares two instances of <see cref="ShaderProgram"/> for equality based on their IDs.
 		/// </summary>
 		/// <param name="left">The first instance to compare.</param>
 		/// <param name="right">The second instance to compare.</param>
 		/// <returns><see langword="true"/> if the IDs are equal; otherwise, <see langword="false"/>.</returns>
-		public static bool operator ==(Program left, Program right) =>
+		public static bool operator ==(ShaderProgram left, ShaderProgram right) =>
 			left.Equals(right);
 
 		/// <summary>
-		/// Compares two instances of <see cref="Program"/> for inequality based on their IDs.
+		/// Compares two instances of <see cref="ShaderProgram"/> for inequality based on their IDs.
 		/// </summary>
 		/// <param name="left">The first instance to compare.</param>
 		/// <param name="right">The second instance to compare.</param>
 		/// <returns><see langword="true"/> if the IDs are not equal; otherwise, <see langword="false"/>.</returns>
-		public static bool operator !=(Program left, Program right) =>
+		public static bool operator !=(ShaderProgram left, ShaderProgram right) =>
 			!left.Equals(right);
 
 		/// <summary>
-		/// Implicitly converts a <see cref="Program"/> to its underlying OpenGL ID (uint).
+		/// Implicitly converts a <see cref="ShaderProgram"/> to its underlying OpenGL ID (uint).
 		/// </summary>
 		/// <param name="this">The program object to convert.</param>
 		/// <returns>The OpenGL ID of the program object.</returns>
-		public static implicit operator uint(Program @this) =>
+		public static implicit operator uint(ShaderProgram @this) =>
 			@this.id;
 	}
 }

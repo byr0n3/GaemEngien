@@ -39,5 +39,12 @@ namespace glfw.Enums
 		/// Specifies whether to create an OpenGL context that is forward-compatible.
 		/// </summary>
 		OpenGLForwardCompat = 0x00022006,
+
+		/// <summary>
+		/// Specifies the number of samples to be used for multisampling.
+		/// A value of 0 disables multisampling, while a higher value enables
+		/// anti‑aliasing by rendering with the specified number of samples per pixel.
+		/// </summary>
+		Samples = 0x0002100D,
 	}
 }

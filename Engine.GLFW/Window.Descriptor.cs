@@ -72,6 +72,11 @@ namespace glfw
 		public bool OpenGLForwardCompat { get; init; }
 
 		/// <summary>
+		/// Gets or sets the number of samples to use for multisampling.
+		/// </summary>
+		public int Samples { get; init; }
+
+		/// <summary>
 		/// Represents the OpenGL version of a window context.
 		/// </summary>
 		[StructLayout(LayoutKind.Sequential)]

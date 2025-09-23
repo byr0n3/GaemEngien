@@ -43,6 +43,7 @@ namespace Engine.OpenGL
 		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteVertexArrays;
 		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteBuffers;
 		private static readonly unsafe delegate*unmanaged<uint, void> deleteProgram;
+		private static readonly unsafe delegate*unmanaged<int, float, float, void> uniform2F;
 		private static readonly unsafe delegate*unmanaged<int, float, float, float, void> uniform3F;
 		private static readonly unsafe delegate*unmanaged<int, float, float, float, float, void> uniform4F;
 		private static readonly unsafe delegate*unmanaged<int, int, void> uniform1I;
@@ -56,10 +57,30 @@ namespace Engine.OpenGL
 		private static readonly unsafe delegate*unmanaged<TextureUnit, void> activeTexture;
 		private static readonly unsafe delegate*unmanaged<PixelStoreParameter, int, void> pixelStorei;
 		private static readonly unsafe delegate*unmanaged<BlendFactor, BlendFactor, void> blendFunc;
+		private static readonly unsafe delegate*unmanaged<int, uint*, void> genFramebuffers;
+		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteFramebuffers;
+		private static readonly unsafe delegate*unmanaged<FramebufferTarget, uint, void> bindFramebuffer;
+		private static readonly unsafe delegate*unmanaged<FramebufferTarget, FramebufferStatus> checkFramebufferStatus;
+		private static readonly unsafe delegate*unmanaged<int, uint*, void> genRenderBuffers;
+		private static readonly unsafe delegate*unmanaged<int, uint, void> bindRenderBuffer;
+		private static readonly unsafe delegate*unmanaged<int, uint*, void> deleteRenderBuffers;
+		private static readonly unsafe delegate*unmanaged<int, RenderBufferInternalFormat, int, int, void> renderBufferStorage;
 
 		private static readonly unsafe delegate*unmanaged<TextureTarget, int, TextureFormat, int, int, int, TextureFormat, TextureType, void
 			*, void>
 			texImage2D;
+
+		private static readonly unsafe delegate*unmanaged<FramebufferTarget, FramebufferTextureAttachment, FramebufferTextureTarget, uint,
+			int, void> framebufferTexture2D;
+
+		private static readonly unsafe delegate*unmanaged<FramebufferTarget, FramebufferRenderBufferAttachment, int, uint, void>
+			framebufferRenderBuffer;
+
+		private static readonly unsafe delegate*unmanaged<int, int, RenderBufferInternalFormat, int, int, void>
+			renderBufferStorageMultisample;
+
+		private static readonly unsafe delegate*unmanaged<int, int, int, int, int, int, int, int, BlitMask, BlitFilter, void>
+			blitFramebuffer;
 
 		public static unsafe ErrorFlag Error =>
 			GL.getError();
@@ -97,6 +118,7 @@ namespace Engine.OpenGL
 			GL.deleteVertexArrays = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteVertexArrays\0"u8);
 			GL.deleteBuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteBuffers\0"u8);
 			GL.deleteProgram = (delegate*unmanaged<uint, void>)GL.GetProcAddress("glDeleteProgram\0"u8);
+			GL.uniform2F = (delegate*unmanaged<int, float, float, void>)GL.GetProcAddress("glUniform2f\0"u8);
 			GL.uniform3F = (delegate*unmanaged<int, float, float, float, void>)GL.GetProcAddress("glUniform3f\0"u8);
 			GL.uniform4F = (delegate*unmanaged<int, float, float, float, float, void>)GL.GetProcAddress("glUniform4f\0"u8);
 			GL.uniform1I = (delegate*unmanaged<int, int, void>)GL.GetProcAddress("glUniform1i\0"u8);
@@ -113,6 +135,28 @@ namespace Engine.OpenGL
 			GL.activeTexture = (delegate*unmanaged<TextureUnit, void>)GL.GetProcAddress("glActiveTexture\0"u8);
 			GL.pixelStorei = (delegate*unmanaged<PixelStoreParameter, int, void>)GL.GetProcAddress("glPixelStorei\0"u8);
 			GL.blendFunc = (delegate* unmanaged<BlendFactor, BlendFactor, void>)GL.GetProcAddress("glBlendFunc\0"u8);
+			GL.genFramebuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glGenFramebuffers\0"u8);
+			GL.deleteFramebuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteFramebuffers\0"u8);
+			GL.bindFramebuffer = (delegate*unmanaged<FramebufferTarget, uint, void>)GL.GetProcAddress("glBindFramebuffer\0"u8);
+			GL.checkFramebufferStatus =
+				(delegate*unmanaged<FramebufferTarget, FramebufferStatus>)GL.GetProcAddress("glCheckFramebufferStatus\0"u8);
+			GL.framebufferTexture2D =
+				(delegate*unmanaged<FramebufferTarget, FramebufferTextureAttachment, FramebufferTextureTarget, uint, int, void>)
+				GL.GetProcAddress("glFramebufferTexture2D\0"u8);
+			GL.genRenderBuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glGenRenderbuffers\0"u8);
+			GL.bindRenderBuffer = (delegate*unmanaged<int, uint, void>)GL.GetProcAddress("glBindRenderbuffer\0"u8);
+			GL.deleteRenderBuffers = (delegate*unmanaged<int, uint*, void>)GL.GetProcAddress("glDeleteRenderbuffers\0"u8);
+			GL.renderBufferStorage =
+				(delegate*unmanaged<int, RenderBufferInternalFormat, int, int, void>)GL.GetProcAddress("glRenderbufferStorage\0"u8);
+			GL.framebufferRenderBuffer =
+				(delegate*unmanaged<FramebufferTarget, FramebufferRenderBufferAttachment, int, uint, void>)GL.GetProcAddress(
+					"glFramebufferRenderbuffer\0"u8);
+			GL.renderBufferStorageMultisample =
+				(delegate*unmanaged<int, int, RenderBufferInternalFormat, int, int, void>)GL.GetProcAddress(
+					"glRenderbufferStorageMultisample\0"u8);
+			GL.blitFramebuffer =
+				(delegate*unmanaged<int, int, int, int, int, int, int, int, BlitMask, BlitFilter, void>)GL.GetProcAddress(
+					"glBlitFramebuffer\0"u8);
 		}
 
 		public static unsafe void Enable(Capability capability)
@@ -338,6 +382,12 @@ namespace Engine.OpenGL
 			GL.Validate();
 		}
 
+		public static unsafe void Uniform2F(int location, float v0, float v1)
+		{
+			GL.uniform2F(location, v0, v1);
+			GL.Validate();
+		}
+
 		public static unsafe void Uniform3F(int location, float v0, float v1, float v2)
 		{
 			GL.uniform3F(location, v0, v1, v2);
@@ -435,6 +485,117 @@ namespace Engine.OpenGL
 		public static unsafe void BlendFunc(BlendFactor src, BlendFactor dst)
 		{
 			GL.blendFunc(src, dst);
+			GL.Validate();
+		}
+
+		public static unsafe void GenFramebuffers(int count, uint* buffers)
+		{
+			GL.genFramebuffers(count, buffers);
+			GL.Validate();
+		}
+
+		public static unsafe uint GenFramebuffer()
+		{
+			uint buffer;
+
+			GL.GenFramebuffers(1, &buffer);
+
+			return buffer;
+		}
+
+		public static unsafe void DeleteFramebuffers(int count, uint* arrays)
+		{
+			GL.deleteFramebuffers(count, arrays);
+			GL.Validate();
+		}
+
+		public static unsafe void BindFramebuffer(FramebufferTarget target, uint framebuffer)
+		{
+			GL.bindFramebuffer(target, framebuffer);
+			GL.Validate();
+		}
+
+		public static unsafe FramebufferStatus CheckFramebufferStatus(FramebufferTarget target) =>
+			GL.checkFramebufferStatus(target);
+
+		public static unsafe void FramebufferTexture2D(FramebufferTextureAttachment attachment,
+													   FramebufferTextureTarget target,
+													   uint texture)
+		{
+			GL.framebufferTexture2D(FramebufferTarget.ReadAndWrite, attachment, target, texture, 0);
+			GL.Validate();
+		}
+
+		public static unsafe void GenRenderBuffers(int count, uint* buffers)
+		{
+			GL.genRenderBuffers(count, buffers);
+			GL.Validate();
+		}
+
+		public static unsafe uint GenRenderBuffer()
+		{
+			uint buffer;
+
+			GL.GenRenderBuffers(1, &buffer);
+
+			return buffer;
+		}
+
+		public static unsafe void BindRenderBuffer(uint renderBuffer)
+		{
+			const int target = 0x8D41;
+
+			GL.bindRenderBuffer(target, renderBuffer);
+			GL.Validate();
+		}
+
+		public static unsafe void DeleteRenderBuffers(int count, uint* arrays)
+		{
+			GL.deleteRenderBuffers(count, arrays);
+			GL.Validate();
+		}
+
+		public static unsafe void RenderBufferStorage(RenderBufferInternalFormat internalFormat, int width, int height)
+		{
+			const int target = 0x8D41;
+
+			GL.renderBufferStorage(target, internalFormat, width, height);
+			GL.Validate();
+		}
+
+		public static unsafe void RenderbufferStorageMultisample(int samples,
+																 RenderBufferInternalFormat internalFormat,
+																 int width,
+																 int height)
+		{
+			const int target = 0x8D41;
+
+			GL.renderBufferStorageMultisample(target, samples, internalFormat, width, height);
+			GL.Validate();
+		}
+
+		public static unsafe void FramebufferRenderBuffer(FramebufferTarget target,
+														  FramebufferRenderBufferAttachment attachment,
+														  uint renderBuffer)
+		{
+			const int renderBufferTarget = 0x8D41;
+
+			GL.framebufferRenderBuffer(target, attachment, renderBufferTarget, renderBuffer);
+			GL.Validate();
+		}
+
+		public static unsafe void BlitFramebuffer(int srcX0,
+												  int srcY0,
+												  int srcX1,
+												  int srcY1,
+												  int dstX0,
+												  int dstY0,
+												  int dstX1,
+												  int dstY1,
+												  BlitMask mask,
+												  BlitFilter filter)
+		{
+			GL.blitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 			GL.Validate();
 		}
 
