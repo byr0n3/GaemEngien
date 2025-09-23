@@ -15,9 +15,9 @@ namespace Engine.OpenGL.Extensions
 		/// </summary>
 		/// <param name="vertexPath">The path to the vertex shader file.</param>
 		/// <param name="fragmentPath">The path to the fragment shader file.</param>
-		/// <returns>A new <see cref="Program"/> instance representing the compiled shader program.</returns>
+		/// <returns>A new <see cref="ShaderProgram"/> instance representing the compiled shader program.</returns>
 		[MustDisposeResource]
-		public static Program LoadFromFiles(string vertexPath, string fragmentPath)
+		public static ShaderProgram LoadFromFiles(string vertexPath, string fragmentPath)
 		{
 			var vertexSource = Shaders.ReadFile(vertexPath, out var vertexRead);
 			var fragmentSource = Shaders.ReadFile(fragmentPath, out var fragmentRead);
@@ -36,7 +36,7 @@ namespace Engine.OpenGL.Extensions
 				fragment.SetSource(fragmentSource.Slice(0, fragmentRead));
 				fragment.Compile();
 
-				var shaderProgram = new Engine.OpenGL.Program();
+				var shaderProgram = new Engine.OpenGL.ShaderProgram();
 				{
 					shaderProgram.AttachShaders([vertex, fragment]);
 					shaderProgram.Link();
@@ -49,6 +49,11 @@ namespace Engine.OpenGL.Extensions
 		[MustDisposeResource]
 		private static RentedArray<byte> ReadFile(string filePath, out int read)
 		{
+			if (!File.Exists(filePath))
+			{
+				throw new System.ArgumentException($"File doesn't exist at: {Path.GetFullPath(filePath)}", nameof(filePath));
+			}
+
 			var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
 			// Max. of 10 mb files for now.

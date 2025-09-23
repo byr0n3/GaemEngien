@@ -1,0 +1,42 @@
+namespace Engine.OpenGL.Enums
+{
+	public enum RenderBufferInternalFormat
+	{
+		None = 0,
+
+		R8 = 0x8229,
+		R8UI = 0x8232,
+		R8I = 0x8231,
+		R16UI = 0x8234,
+		R16I = 0x8233,
+		R32UI = 0x8236,
+		R32I = 0x8235,
+		RG8 = 0x822B,
+		RG8UI = 0x8238,
+		RG8I = 0x8237,
+		RG16UI = 0x823A,
+		RG16I = 0x8239,
+		RG32UI = 0x823C,
+		RG32I = 0x823B,
+		RGB8 = 0x8051,
+		RGB565 = 0x8D62,
+		RGBA8 = 0x8058,
+		SRGB8Alpha8 = 0x8C43,
+		RGB5_A1 = 0x8057,
+		RGBA4 = 0x8056,
+		RGB10_A2 = 0x8059,
+		RGBA8UI = 0x8D7C,
+		RGBA8I = 0x8D8E,
+		RGB10_A2UI = 0x906F,
+		RGBA16UI = 0x8D76,
+		RGBA16I = 0x8D88,
+		RGBA32I = 0x8D82,
+		RGBA32UI = 0x8D70,
+		DepthComponent16 = 0x81A5,
+		DepthComponent24 = 0x81A6,
+		DepthComponent32F = 0x8CAC,
+		Depth24Stencil8 = 0x88F0,
+		Depth32FStencil8 = 0x8CAD,
+		StencilIndex8 = 0x8D48,
+	}
+}
